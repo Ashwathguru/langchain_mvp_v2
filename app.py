@@ -5,7 +5,7 @@ from PIL import Image
 
 
 # Find more emojis here: https://www.webfx.com/tools/emoji-cheat-sheet/
-st.set_page_config(page_title="My Webpage", page_icon=":tada:", layout="wide")
+st.set_page_config(page_title="QuickpartsGPT", page_icon=":tada:", layout="wide")
 
 
 def load_lottieurl(url):
@@ -27,11 +27,23 @@ local_css("style/style.css")
 lottie_coding = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
 img_contact_form = Image.open("images/yt_contact_form.png")
 img_lottie_animation = Image.open("images/yt_lottie_animation.png")
+quickparts_logo = Image.open("images/quickparts_logo.png")
 
 # ---- HEADER SECTION ----
 with st.container():
-    st.subheader("Hi, I am Sven :wave:")
-    st.title("A Data Analyst From Germany")
+    #st.subheader("Hi, I am Sven :wave:")
+    st.image(quickparts_logo, width=200, caption="Quickparts Logo")
+    st.title("QuickpartsGPT")
+
+    # Centered title and logo using Streamlit and HTML/CSS
+    st.markdown(
+        """
+        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+            <img src="images/quickparts_logo.png" alt="Logo" width="200" style="margin-bottom: 20px;">
+            <h2 style="text-align: center;">Your Centered Title</h2>
+        </div>
+        """
+    , unsafe_allow_html=True)
     st.write(
         "I am passionate about finding ways to use Python and VBA to be more efficient and effective in business settings."
     )
