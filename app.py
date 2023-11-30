@@ -135,9 +135,9 @@ def reportsGPT():
             with open("response.txt", "w") as f:
                 f.write(response)
             # Provide a download button for the transcript
-            st.download_button("Download Response", response)
+            st.download_button("Download Response", response,key='voice_download')
 
-    # Upload Audio tab
+    #Chat Tab
     with tab2:
         query = st.text_area("Ask any question related to the tickets")
         button = st.button("Submit")
@@ -148,7 +148,7 @@ def reportsGPT():
             with open("response.txt", "w") as f:
                 f.write(response)
             # Provide a download button for the transcript
-            st.download_button("Download Response", response)
+            st.download_button("Download Response", response,key='chat_download')
 
 # ---- LOAD ASSETS ----
 lottie_coding = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
