@@ -37,17 +37,21 @@ with st.container():
     col1.image(quickparts_logo, width=100, caption="")
     # Column 2: Title (Centered)
     with col2:
-        st.header("QuickpartsGPT")
+        st.header("IT Service Management")
         # Add a horizontal line to separate logo, title, and buttons
         st.markdown("<hr>", unsafe_allow_html=True)
 
     with col3:
-        # Subcolumn 1: "Reports" Button
-        reports_button = st.button("Reports")
-
-        # Subcolumn 2: "Wiki" Button
-        st.write("  ")  # Add space between buttons
-        wiki_button = st.button("Wiki")
+        # Use custom HTML and CSS to style the buttons
+        st.markdown(
+            """
+            <div style="display: flex; justify-content: flex-end;">
+                <button style="margin-right: 10px;">Reports</button>
+                <button>Wiki</button>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 # ---- WHAT I DO ----
 with st.container():
