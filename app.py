@@ -71,7 +71,22 @@ with st.container():
     #    st_lottie(lottie_coding, height=300, key="coding")
 
     with col_bottom3:
-        # Create a clickable lottie animation
-        if st_lottie(lottie_coding, height=300, key="coding", clickable=True):
-            # Open a pop-up with additional content when lottie is clicked
-            st.popup("This is a pop-up", key="pop_up")
+        # Create a clickable lottie animation using custom HTML
+        lottie_html = f"""
+        <div onclick="open_popup()" style="cursor: pointer;">
+            <lottie-player 
+                src="{lottie_coding}" 
+                background="transparent" 
+                speed="1" 
+                style="width: 300px; height: 300px;" 
+                loop 
+                autoplay
+            ></lottie-player>
+        </div>
+        <script>
+            function open_popup() {{
+                window.open('', '_blank').document.write('<p>This is a pop-up</p>');
+            }}
+        </script>
+        """
+        st.markdown(lottie_html, unsafe_allow_html=True)
