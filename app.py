@@ -108,17 +108,10 @@ def run_custom_js(response):
     """
     st.markdown(f"<script>{custom_js_code}</script>", unsafe_allow_html=True)
 
-def text_to_speech(text):
+def text_to_speech(text, filename='output.mp3'):
     tts = gTTS(text=text, lang='en', slow=False)
-    audio_data = tts.get_audio_data()
-
-    # Convert audio data to base64
-    audio_base64 = base64.b64encode(audio_data).decode('utf-8')
-
-    # Generate a data URI for the audio
-    audio_uri = f"data:audio/mp3;base64,{audio_base64}"
-
-    return audio_uri
+    tts.save(filename)
+    return filename
 
 def reportsGPT():
     """
