@@ -117,7 +117,6 @@ def text_to_speech(text, filename='output.mp3'):
     audio_data = open(audio_path, 'rb').read()
     
     #display(Audio(audio_data, autoplay=True))
-    st.audio(audio_data, format='audio/mp3', start_time=0)
     #st.info('play done')
     # Convert audio data to base64
     audio_base64 = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
