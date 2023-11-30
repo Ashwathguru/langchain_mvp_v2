@@ -67,11 +67,11 @@ with st.container():
 
     image4 = col_bottom1.image("images/ticket_count.JPG", use_column_width=True)
     image5 = col_bottom2.image("images/request_count.JPG", use_column_width=True)
+    #with col_bottom3:
+    #    st_lottie(lottie_coding, height=300, key="coding")
+
     with col_bottom3:
-        st_lottie(lottie_coding, height=300, key="coding")
-
-    # Create a button to open the pop-up when the Lottie animation is clicked
-    if st.button("Click to Open Pop-up", key="lottie_button"):
-        # Open a pop-up with additional content
-        st.write("Pop-up Content Goes Here!")
-
+        # Create a clickable lottie animation
+        if st_lottie(lottie_coding, height=300, key="coding", clickable=True):
+            # Open a pop-up with additional content when lottie is clicked
+            st.popup("This is a pop-up", key="pop_up")
