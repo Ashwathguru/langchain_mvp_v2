@@ -111,17 +111,12 @@ def reportsGPT():
         if audio_bytes:
             st.audio(audio_bytes, format="audio/wav")
             save_audio_file(audio_bytes, "mp3")
-        # Transcribe button action
-        if st.button("Submit Voice command ?"):
-            # Find the newest audio file
             audio_file_path = max(
                 [f for f in os.listdir(".") if f.startswith("audio")],
                 key=os.path.getctime,
             )
-
             # Transcribe the audio file
             transcript_text = transcribe_audio(audio_file_path)
-
             # Display the transcript
             st.header("Transcript")
             st.write(transcript_text)
@@ -129,21 +124,17 @@ def reportsGPT():
             response=get_answer_csv(query)
             st.write(response)
 
-            tts_button = Button(label="Talk to me", width=100)
-
-            tts_button.js_on_event("button_click", CustomJS(code=f"""
-                                    var u = new SpeechSynthesisUtterance();
-                                    u.text = "{response}";
-                                    u.lang = 'en-US';
-
-                                    speechSynthesis.speak(u);
-                                    """))
-
-            st.bokeh_chart(tts_button)
+            custom_js_code = f"""
+            var u = new SpeechSynthesisUtterance();
+            u.text = "{response}";
+            u.lang = 'en-US';
+            speechSynthesis.speak(u);
+            """
+            st.markdown(f"<script>{custom_js_code}</script>", unsafe_allow_html=True)
+            
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
-
             # Provide a download button for the transcript
             st.download_button("Download Response", response)
 

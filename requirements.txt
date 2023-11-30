@@ -6,7 +6,7 @@ protobuf
 watchdog
 streamlit_option_menu
 audio-recorder-streamlit
-openai
+openai==0.28
 langchain==0.0.316
 tiktoken
 black
