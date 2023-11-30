@@ -3,7 +3,6 @@ import streamlit as st
 from streamlit_lottie import st_lottie
 from PIL import Image
 
-
 # Find more emojis here: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(page_title="QuickpartsGPT", page_icon=":tada:", layout="wide")
 
@@ -11,8 +10,13 @@ st.set_page_config(page_title="QuickpartsGPT", page_icon=":tada:", layout="wide"
 def load_lottieurl(url):
     r = requests.get(url)
     if r.status_code != 200:
+        st.error(f"Failed to load Lottie animation. Status code: {r.status_code}")
         return None
-    return r.json()
+    try:
+        return r.json()
+    except ValueError as e:
+        st.error(f"Error parsing Lottie JSON: {e}")
+        return None
 
 
 # Use local CSS
@@ -67,26 +71,12 @@ with st.container():
 
     image4 = col_bottom1.image("images/ticket_count.JPG", use_column_width=True)
     image5 = col_bottom2.image("images/request_count.JPG", use_column_width=True)
-    #with col_bottom3:
-    #    st_lottie(lottie_coding, height=300, key="coding")
-
+    
     with col_bottom3:
-        # Create a clickable lottie animation using custom HTML
-        lottie_html = f"""
-        <div onclick="open_popup()" style="cursor: pointer;">
-            <lottie-player 
-                src="{lottie_coding}" 
-                background="transparent" 
-                speed="1" 
-                style="width: 300px; height: 300px;" 
-                loop 
-                autoplay
-            ></lottie-player>
-        </div>
-        <script>
-            function open_popup() {{
-                window.open('', '_blank').document.write('<p>This is a pop-up</p>');
-            }}
-        </script>
-        """
-        st.markdown(lottie_html, unsafe_allow_html=True)
+        # Display the Lottie animation with st_lottie
+        st_lottie(lottie_coding, height=300, key="coding")
+
+        # Create a button to open the pop-up when clicked
+        if st.button("Click to Open Pop-up", key="popup_button"):
+            # Open a pop-up with additional content
+            st.write("This is a pop-up!")
