@@ -14,7 +14,7 @@ from langchain.llms import OpenAI
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from gtts import gTTS
-import pygame
+import base64
 
 # import API key from .env file
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -108,17 +108,17 @@ def run_custom_js(response):
     """
     st.markdown(f"<script>{custom_js_code}</script>", unsafe_allow_html=True)
 
-def save_and_play_mp3(text, filename='output.mp3'):
-    # Create a text-to-speech object
+def text_to_speech(text):
     tts = gTTS(text=text, lang='en', slow=False)
+    audio_data = tts.get_audio_data()
 
-    # Save the speech as an MP3 file
-    tts.save(filename)
+    # Convert audio data to base64
+    audio_base64 = base64.b64encode(audio_data).decode('utf-8')
 
-    # Play the saved MP3 file using pygame
-    pygame.mixer.init()
-    pygame.mixer.music.load(filename)
-    pygame.mixer.music.play()
+    # Generate a data URI for the audio
+    audio_uri = f"data:audio/mp3;base64,{audio_base64}"
+
+    return audio_uri
 
 def reportsGPT():
     """
