@@ -108,19 +108,30 @@ def text_to_speech(text):
     #"""
 
     # Display the audio player using HTML5 with autoplay and JavaScript
+    #audio_code = f"""
+    #<audio id="audioPlayer" autoplay controls>
+    #    <source src="{audio_uri}" type="audio/mp3">
+    #    Your browser does not support the audio element.
+    #</audio>
+    #<script>
+    #    var audio = document.getElementById("audioPlayer");
+    #    audio.onended = function() {{
+    #        // Reload the audio source to enable autoplay on subsequent calls
+    #        audio.src = "{audio_uri}";
+    #        audio.load();
+    #        audio.play();
+    #    }};
+    #</script>
+    #"""
+
     audio_code = f"""
     <audio id="audioPlayer" autoplay controls>
         <source src="{audio_uri}" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
     <script>
-        var audio = document.getElementById("audioPlayer");
-        audio.onended = function() {{
-            // Reload the audio source to enable autoplay on subsequent calls
-            audio.src = "{audio_uri}";
-            audio.load();
-            audio.play();
-        }};
+        document.getElementById("audioPlayer").setAttribute("src", "{audio_uri}");
+        document.getElementById("audioPlayer").play();
     </script>
     """
     st.markdown(audio_code, unsafe_allow_html=True)
