@@ -124,8 +124,19 @@ def text_to_speech(text):
     #</script>
     #"""
 
+    #audio_code = f"""
+    ##<audio id="audioPlayer" autoplay controls>
+    ##    <source src="{audio_uri}" type="audio/mp3">
+    ##    Your browser does not support the audio element.
+    ##</audio>
+    ##<script>
+    ##    document.getElementById("audioPlayer").setAttribute("src", "{audio_uri}");
+    ##    document.getElementById("audioPlayer").play();
+    ##</script>
+    #"""
+
     audio_code = f"""
-    <audio id="audioPlayer" autoplay controls>
+    <audio id="audioPlayer" autoplay>
         <source src="{audio_uri}" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
