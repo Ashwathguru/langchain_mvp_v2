@@ -97,6 +97,15 @@ def transcribe_audio(file_path):
 
     return transcript["text"]
 
+def run_custom_js(response):
+    custom_js_code = f"""
+        var u = new SpeechSynthesisUtterance();
+        u.text = "{response}";
+        u.lang = 'en-US';
+        speechSynthesis.speak(u);
+    """
+    st.markdown(f"<script>{custom_js_code}</script>", unsafe_allow_html=True)
+
 def reportsGPT():
     """
     Main function to run the Whisper Transcription app.
@@ -124,14 +133,7 @@ def reportsGPT():
             response=get_answer_csv(query)
             st.write(response)
 
-            custom_js_code = f"""
-            var u = new SpeechSynthesisUtterance();
-            u.text = "{response}";
-            u.lang = 'en-US';
-            speechSynthesis.speak(u);
-            """
-            st.markdown(f"<script>{custom_js_code}</script>", unsafe_allow_html=True)
-            
+            st.script_runner(run_custom_js, response)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
