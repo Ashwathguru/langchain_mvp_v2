@@ -27,8 +27,8 @@ def streamlit_menu():
         default_index=0,  # optional
         orientation="horizontal",
         styles={
-            "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "25px"},
+            "container": {"padding": "0!important", "background-color": "red"},
+            "icon": {"color": "yellow", "font-size": "25px"},  # Change font color to yellow
             "nav-link": {
                 "font-size": "25px",
                 "text-align": "left",
@@ -228,7 +228,6 @@ quickparts_logo = Image.open("images/quickparts_logo.JPG")
 selected = streamlit_menu()
 
 if selected == "Home":
-    st.title(f"You have selected {selected}")
     # Find more emojis here: https://www.webfx.com/tools/emoji-cheat-sheet/
     #st.set_page_config(page_title="QuickpartsGPT", page_icon=":tada:", layout="wide")
     # ---- HEADER SECTION ----
@@ -243,21 +242,20 @@ if selected == "Home":
             # Add a horizontal line to separate logo, title, and buttons
             st.markdown("<hr>", unsafe_allow_html=True)
 
-        with col3:
-            # Use custom HTML and CSS to style the buttons
-            st.markdown(
-                """
-                <div style="display: flex; justify-content: flex-end;">
-                    <button style="margin-right: 10px;">Reports</button>
-                    <button>Wiki</button>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+        #with col3:
+        #    # Use custom HTML and CSS to style the buttons
+        #    st.markdown(
+        #        """
+        #        <div style="display: flex; justify-content: flex-end;">
+        #            <button style="margin-right: 10px;">Reports</button>
+        #            <button>Wiki</button>
+        #        </div>
+        #        """,
+        #        unsafe_allow_html=True
+        #    )
 
     # ---- PROJECTS ----
     with st.container():
-        st.write("---")
         # Split into 6 parts (3 on top, 3 on bottom)
         col_top1, col_top2, col_top3 = st.columns(3)
         col_bottom1, col_bottom2, col_bottom3 = st.columns(3)
