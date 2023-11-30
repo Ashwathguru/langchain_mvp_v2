@@ -196,7 +196,7 @@ def reportsGPT():
             u.lang = 'en-US';
 
             speechSynthesis.speak(u);
-            """
+            """.format(response=response)
             my_html = f"<script>{js_code}</script>"
 
 
