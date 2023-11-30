@@ -189,25 +189,22 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-            # Wrapt the javascript as html code
             js_code="""
             var u = new SpeechSynthesisUtterance();
             u.text = "{response}";
             u.lang = 'en-US';
-
             speechSynthesis.speak(u);
             """.format(response=response)
             my_html = f"<script>{js_code}</script>"
-
-
             components.html(my_html)
         
             #text_to_speech(response)
+            
             # Save the transcript to a text file
-            with open("response.txt", "w") as f:
-                f.write(response)
-            # Provide a download button for the transcript
-            st.download_button("Download Response", response,key='voice_download')
+            #with open("response.txt", "w") as f:
+            #    f.write(response)
+            ## Provide a download button for the transcript
+            #st.download_button("Download Response", response,key='voice_download')
 
     #Chat Tab
     with tab2:
@@ -217,10 +214,10 @@ def reportsGPT():
             response=get_answer_csv(query)
             st.write(response)
             # Save the transcript to a text file
-            with open("response.txt", "w") as f:
-                f.write(response)
-            # Provide a download button for the transcript
-            st.download_button("Download Response", response,key='chat_download')
+            #with open("response.txt", "w") as f:
+            #    f.write(response)
+            ## Provide a download button for the transcript
+            #st.download_button("Download Response", response,key='chat_download')
 
 # ---- LOAD ASSETS ----
 lottie_coding = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
