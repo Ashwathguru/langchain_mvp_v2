@@ -4,12 +4,12 @@ def main():
     st.title("Streamlit Chat App with Images")
 
     # Load and display 4 images in a 2x2 grid on the landing page
-    image1 = st.image("image.png", caption="Image 1", use_column_width=True)
-    image2 = st.image("image.png", caption="Image 2", use_column_width=True)
+    image1 = st.image("image.jpg", caption="Image 1", use_column_width=True)
+    image2 = st.image("image.jpg", caption="Image 2", use_column_width=True)
 
     col1, col2 = st.beta_columns(2)
-    image3 = col1.image("image.png", caption="Image 3", use_column_width=True)
-    image4 = col2.image("image.png", caption="Image 4", use_column_width=True)
+    image3 = col1.image("image.jpg", caption="Image 3", use_column_width=True)
+    image4 = col2.image("image.jpg", caption="Image 4", use_column_width=True)
 
     # Add a clickable chat icon in the bottom right corner
     st.markdown(
