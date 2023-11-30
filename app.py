@@ -115,6 +115,7 @@ def text_to_speech(text, filename='output.mp3'):
     audio_path = filename
     audio_data = open(audio_path, 'rb').read()
     display(Audio(audio_data, autoplay=True))
+    st.audio(audio_data, format='audio/mp3', start_time=0, autoplay=True)
     st.info('play done')
 
 def reportsGPT():
