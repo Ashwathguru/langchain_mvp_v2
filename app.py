@@ -13,6 +13,8 @@ from langchain.agents import create_csv_agent
 from langchain.llms import OpenAI
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
+from gtts import gTTS
+import pygame
 
 # import API key from .env file
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -106,6 +108,18 @@ def run_custom_js(response):
     """
     st.markdown(f"<script>{custom_js_code}</script>", unsafe_allow_html=True)
 
+def save_and_play_mp3(text, filename='output.mp3'):
+    # Create a text-to-speech object
+    tts = gTTS(text=text, lang='en', slow=False)
+
+    # Save the speech as an MP3 file
+    tts.save(filename)
+
+    # Play the saved MP3 file using pygame
+    pygame.mixer.init()
+    pygame.mixer.music.load(filename)
+    pygame.mixer.music.play()
+
 def reportsGPT():
     """
     Main function to run the Whisper Transcription app.
@@ -132,14 +146,14 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-            tts_code = CustomJS(code=f"""
-                var u = new SpeechSynthesisUtterance();
-                u.text = "{response}";
-                u.lang = 'en-US';
-
-                speechSynthesis.speak(u);
-                """)
-            st.bokeh_chart(tts_code)
+            #tts_code = CustomJS(code=f"""
+            #    var u = new SpeechSynthesisUtterance();
+            #    u.text = "{response}";
+            #    u.lang = 'en-US';
+            #    speechSynthesis.speak(u);
+            #    """)
+            #st.bokeh_chart(tts_code)
+            save_and_play_mp3(response)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)

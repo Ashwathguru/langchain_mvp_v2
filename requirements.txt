@@ -12,3 +12,5 @@ tiktoken
 black
 tabulate
 bokeh==2.4.3
+gTTS
+pygame
