@@ -13,7 +13,7 @@ from langchain.agents import create_csv_agent
 from langchain.llms import OpenAI
 from gtts import gTTS
 import base64
-
+from datetime import datetime
 # import API key from .env file
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
@@ -89,10 +89,12 @@ def transcribe_audio(file_path):
 
     return transcript["text"]
 
-def text_to_speech(text, filename='output.mp3'):
+def text_to_speech(text):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]  # Format with milliseconds
+    filename = f"output_{timestamp}.mp3"
     tts = gTTS(text=text, lang='en', slow=False)
     tts.save(filename)
-
+    
     # Convert audio data to base64
     audio_base64 = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
     # Generate a data URI for the audio
@@ -106,17 +108,6 @@ def text_to_speech(text, filename='output.mp3'):
     </audio>
     """
     st.markdown(audio_code, unsafe_allow_html=True)
-
-    st.info('New Clip')
-    st.markdown(
-        f"""
-        <script>
-            var audio = new Audio("{audio_uri}");
-            audio.play();
-        </script>
-        """,
-        unsafe_allow_html=True
-    )
 
 def reportsGPT():
     st.title("ReportGPT")
