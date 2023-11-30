@@ -14,7 +14,7 @@ from langchain.llms import OpenAI
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from gtts import gTTS
-import base64
+from IPython.display import display, Audio
 
 # import API key from .env file
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -111,6 +111,10 @@ def run_custom_js(response):
 def text_to_speech(text, filename='output.mp3'):
     tts = gTTS(text=text, lang='en', slow=False)
     tts.save(filename)
+    # Display and automatically play the audio
+    audio_path = filename
+    audio_data = open(audio_path, 'rb').read()
+    display(Audio(audio_data, autoplay=True))
     return filename
 
 def reportsGPT():
@@ -125,7 +129,8 @@ def reportsGPT():
     with tab1:
         audio_bytes = audio_recorder()
         if audio_bytes:
-            st.audio(audio_bytes, format="audio/wav")
+            #option to replay audio
+            #st.audio(audio_bytes, format="audio/wav")
             save_audio_file(audio_bytes, "mp3")
             audio_file_path = max(
                 [f for f in os.listdir(".") if f.startswith("audio")],
