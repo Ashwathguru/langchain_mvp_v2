@@ -132,8 +132,7 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-
-            st.script_runner(run_custom_js, response)
+            run_custom_js(response)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
