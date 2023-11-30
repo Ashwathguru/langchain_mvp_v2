@@ -27,8 +27,8 @@ def streamlit_menu():
         default_index=0,  # optional
         orientation="horizontal",
         styles={
-            "container": {"padding": "0!important", "background-color": "red"},
-            "icon": {"color": "yellow", "font-size": "25px"},  # Change font color to yellow
+            "container": {"padding": "0!important", "background-color": "#dbdb32"},
+            "icon": {"color": "#32bcdb", "font-size": "25px"},  # Change font color to yellow
             "nav-link": {
                 "font-size": "25px",
                 "text-align": "left",
