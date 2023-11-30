@@ -3,50 +3,32 @@ import streamlit as st
 def main():
     st.title("Streamlit Chat App")
 
-    # Add a clickable chat symbol in the bottom right corner
+    # Add a clickable chat icon
     st.markdown(
         """
         <style>
-            .chat-btn {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
+            .chat-icon {
                 cursor: pointer;
                 font-size: 24px;
                 color: #3498db;
-                background-color: #fff;
-                border: 2px solid #3498db;
-                border-radius: 50%;
-                padding: 10px;
             }
         </style>
         """
     , unsafe_allow_html=True)
 
-    st.markdown(
-        """
-        <div class="chat-btn" id="chat-btn">&#x1F4AC;</div>
-        """
-    , unsafe_allow_html=True)
-
-    # Use JavaScript to handle the chat symbol click event and open the pop-up
-    st.markdown(
-        """
-        <script>
-            document.getElementById("chat-btn").addEventListener("click", function() {
-                // Open a full-screen pop-up
-                const popup = window.open("", "ChatPopup", "width=100%,height=100%");
-                popup.document.write(`
-                    <div style="text-align: center; padding: 20px;">
-                        <h2>Chat Popup</h2>
-                        <p>This is your chat popup content.</p>
-                        <button onclick="window.close()">Close</button>
-                    </div>
-                `);
-            });
-        </script>
-        """
-    , unsafe_allow_html=True)
+    if st.button("", key="chat-btn"):
+        # If the button is clicked, show the chat pop-up
+        st.markdown(
+            """
+            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
+                <div style="background: #fff; padding: 20px; border-radius: 10px; width: 400px; height: 400px;">
+                    <h2>Chat Popup</h2>
+                    <textarea style="width: 100%; height: 200px; margin-bottom: 10px;"></textarea>
+                    <button onclick="document.getElementById('chat-popup').style.display='none'">Close</button>
+                </div>
+            </div>
+            """
+        , unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
