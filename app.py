@@ -100,7 +100,7 @@ def customMarkdown(msg):
         document.getElementById("audioPlayer").play();
     </script>
     """
-    placeholder.markdown(audio_code, unsafe_allow_html=True)
+    st.markdown(audio_code, unsafe_allow_html=True)
     placeholder.empty()
 
 def text_to_speech(text):
@@ -150,18 +150,18 @@ def text_to_speech(text):
     ##</script>
     #"""
 
-    #audio_code = f"""
-    #<audio id="audioPlayer" autoplay>
-    #    <source src="{audio_uri}" type="audio/mp3">
-    #    Your browser does not support the audio element.
-    #</audio>
-    #<script>
-    #    document.getElementById("audioPlayer").setAttribute("src", "{audio_uri}");
-    #    document.getElementById("audioPlayer").play();
-    #</script>
-    #"""
-    #st.markdown(audio_uri, unsafe_allow_html=True)
-    customMarkdown(audio_uri)
+    audio_code = f"""
+    <audio id="audioPlayer" autoplay>
+        <source src="{audio_uri}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        document.getElementById("audioPlayer").setAttribute("src", "{audio_uri}");
+        document.getElementById("audioPlayer").play();
+    </script>
+    """
+    st.markdown(audio_code, unsafe_allow_html=True)
+    #customMarkdown(audio_uri)
 
 def reportsGPT():
     st.title("ReportGPT")
