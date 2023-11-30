@@ -7,7 +7,7 @@ watchdog
 streamlit_option_menu
 audio-recorder-streamlit
 openai
-langchain
+langchain==0.0.316
 tiktoken
 black
 tabulate
