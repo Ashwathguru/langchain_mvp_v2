@@ -5,7 +5,6 @@ from PIL import Image
 from streamlit_option_menu import option_menu
 import os
 import sys
-import datetime
 import openai
 import streamlit as st
 from audio_recorder_streamlit import audio_recorder
