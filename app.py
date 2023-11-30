@@ -27,7 +27,7 @@ local_css("style/style.css")
 lottie_coding = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
 img_contact_form = Image.open("images/yt_contact_form.png")
 img_lottie_animation = Image.open("images/yt_lottie_animation.png")
-quickparts_logo = Image.open("images/quickparts_logo.png")
+quickparts_logo = Image.open("images/quickparts_logo.JPG")
 
 # ---- HEADER SECTION ----
 with st.container():
@@ -39,7 +39,7 @@ with st.container():
     st.markdown(
         """
         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-            <img src="images/quickparts_logo.png" alt="Logo" width="200" style="margin-bottom: 20px;">
+            <img src="images/quickparts_logo.JPG" alt="Logo" width="200" style="margin-bottom: 20px;">
             <h2 style="text-align: center;">Your Centered Title</h2>
         </div>
         """
