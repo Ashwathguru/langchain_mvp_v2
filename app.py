@@ -108,11 +108,7 @@ def text_to_speech(text, filename='output.mp3'):
     st.markdown(audio_code, unsafe_allow_html=True)
 
 def reportsGPT():
-    """
-    Main function to run the Whisper Transcription app.
-    """
     st.title("ReportGPT")
-
     tab1, tab2 = st.tabs(["Speak", "Chat"])
 
     # Record Audio tab
