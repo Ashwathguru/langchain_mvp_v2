@@ -20,7 +20,7 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 def streamlit_menu():
     selected = option_menu(
         menu_title="IT Service Management",  # required
-        options=["Home", "Projects", "Contact"],  # required
+        options=["Home", "ReportGPT", "WikiGPT"],  # required
         icons=["house", "book", "envelope"],  # optional
         menu_icon="cast",  # optional
         default_index=0,  # optional
