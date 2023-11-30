@@ -57,8 +57,8 @@ with st.container():
 with st.container():
     st.write("---")
     # Split into 6 parts (3 on top, 3 on bottom)
-    col_top1, col_top2, col_top3 = st.beta_columns(3)
-    col_bottom1, col_bottom2, col_bottom3 = st.beta_columns(3)
+    col_top1, col_top2, col_top3 = st.columns(3)
+    col_bottom1, col_bottom2, col_bottom3 = st.columns(3)
 
     # Load an image in each box
     image1 = col_top1.image("images/ticket_status.JPG", use_column_width=True)
@@ -67,7 +67,13 @@ with st.container():
 
     image4 = col_bottom1.image("images/ticket_count.JPG", use_column_width=True)
     image5 = col_bottom2.image("images/request_count.JPG", use_column_width=True)
-    image6 = col_bottom3.image("images/chat_bot.JPG", use_column_width=True)
+    image6 = col_bottom3.empty()
+    image6.lottie(lottie_coding, width=200, height=200)
+    
+    # Create a button to open the pop-up when the Lottie animation is clicked
+    if st.button("Click to Open Pop-up", key="lottie_button"):
+        # Open a pop-up with additional content
+        st.write("Pop-up Content Goes Here!")
 
 with st.container():
     image_column, text_column = st.columns((1, 2))
