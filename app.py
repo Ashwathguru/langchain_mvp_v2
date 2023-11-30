@@ -31,23 +31,21 @@ quickparts_logo = Image.open("images/quickparts_logo.JPG")
 
 # ---- HEADER SECTION ----
 with st.container():
-    #st.subheader("Hi, I am Sven :wave:")
-    st.image(quickparts_logo, width=200, caption="Quickparts Logo")
-    st.title("QuickpartsGPT")
+    # Set up the layout using st.beta_columns
+    col1, col2, col3 = st.beta_columns([2, 6, 2])
+    # Column 1: Logo (Top Left)
+    col1.image(quickparts_logo, width=100, caption="")
+    # Column 2: Title (Centered)
+    with col2:
+        st.header("Your Centered Title")
+        # Add a horizontal line to separate logo, title, and buttons
+        st.markdown("<hr>", unsafe_allow_html=True)
 
-    # Centered title and logo using Streamlit and HTML/CSS
-    st.markdown(
-        """
-        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-            <img src="images/quickparts_logo.JPG" alt="Logo" width="200" style="margin-bottom: 20px;">
-            <h2 style="text-align: center;">Your Centered Title</h2>
-        </div>
-        """
-    , unsafe_allow_html=True)
-    st.write(
-        "I am passionate about finding ways to use Python and VBA to be more efficient and effective in business settings."
-    )
-    st.write("[Learn More >](https://pythonandvba.com)")
+    # Column 3: Buttons (Top Right)
+    with col3:
+        # Add buttons
+        reports_button = st.button("Reports")
+        wiki_button = st.button("Wiki")
 
 # ---- WHAT I DO ----
 with st.container():
