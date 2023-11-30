@@ -155,6 +155,7 @@ def reportsGPT():
     with tab1:
         audio_bytes = audio_recorder()
         if audio_bytes:
+            st.cache_data.clear()
             #option to replay audio
             #st.audio(audio_bytes, format="audio/wav")
             save_audio_file(audio_bytes, "mp3")
