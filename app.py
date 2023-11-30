@@ -32,19 +32,21 @@ quickparts_logo = Image.open("images/quickparts_logo.JPG")
 # ---- HEADER SECTION ----
 with st.container():
     # Set up the layout using st.beta_columns
-    col1, col2, col3 = st.beta_columns([2, 6, 2])
+    col1, col2, col3 = st.columns([2, 6, 2])
     # Column 1: Logo (Top Left)
     col1.image(quickparts_logo, width=100, caption="")
     # Column 2: Title (Centered)
     with col2:
-        st.header("Your Centered Title")
+        st.header("QuickpartsGPT")
         # Add a horizontal line to separate logo, title, and buttons
         st.markdown("<hr>", unsafe_allow_html=True)
 
-    # Column 3: Buttons (Top Right)
     with col3:
-        # Add buttons
+        # Subcolumn 1: "Reports" Button
         reports_button = st.button("Reports")
+
+        # Subcolumn 2: "Wiki" Button
+        st.write("  ")  # Add space between buttons
         wiki_button = st.button("Wiki")
 
 # ---- WHAT I DO ----
