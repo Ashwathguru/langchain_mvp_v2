@@ -98,7 +98,7 @@ def text_to_speech(text):
     audio_base64 = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
     # Generate a data URI for the audio
     audio_uri = f"data:audio/mp3;base64,{audio_base64}"
-
+    st.cache_data.clear()
     # Display the audio player using HTML and JavaScript
     #audio_code = f"""
     #<audio autoplay controls>
