@@ -187,7 +187,15 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-            text_to_speech(response)
+            js_code="""
+            var u = new SpeechSynthesisUtterance();
+            u.text = "{response}";
+            u.lang = 'en-US';
+
+            speechSynthesis.speak(u);
+            """
+            st.js(js_code)
+            #text_to_speech(response)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
