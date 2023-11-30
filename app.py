@@ -15,6 +15,7 @@ from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from gtts import gTTS
 from IPython.display import display, Audio
+import base64
 
 # import API key from .env file
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -114,9 +115,16 @@ def text_to_speech(text, filename='output.mp3'):
     # Display and automatically play the audio
     audio_path = filename
     audio_data = open(audio_path, 'rb').read()
-    display(Audio(audio_data, autoplay=True))
-    st.audio(audio_data, format='audio/mp3', start_time=0, autoplay=True)
-    st.info('play done')
+    
+    #display(Audio(audio_data, autoplay=True))
+    st.audio(audio_data, format='audio/mp3', start_time=0)
+    #st.info('play done')
+    # Convert audio data to base64
+    audio_base64 = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
+    # Generate a data URI for the audio
+    audio_uri = f"data:audio/mp3;base64,{audio_base64}"
+
+    return audio_uri
 
 def reportsGPT():
     """
@@ -145,7 +153,17 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-            text_to_speech(response)
+            #text_to_speech(response)
+            audio_uri = text_to_speech(response)
+
+            # Display the audio player using HTML and JavaScript
+            audio_code = f"""
+            <audio autoplay controls>
+                <source src="{audio_uri}" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            """
+            st.markdown(audio_code, unsafe_allow_html=True)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
