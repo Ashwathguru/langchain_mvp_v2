@@ -184,7 +184,7 @@ selected = streamlit_menu()
 if selected == "Home":
     st.title(f"You have selected {selected}")
     # Find more emojis here: https://www.webfx.com/tools/emoji-cheat-sheet/
-    st.set_page_config(page_title="QuickpartsGPT", page_icon=":tada:", layout="wide")
+    #st.set_page_config(page_title="QuickpartsGPT", page_icon=":tada:", layout="wide")
     # ---- HEADER SECTION ----
     with st.container():
         # Set up the layout using st.beta_columns
