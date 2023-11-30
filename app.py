@@ -13,6 +13,8 @@ from langchain.llms import OpenAI
 from gtts import gTTS
 import base64
 from datetime import datetime
+import streamlit.components.v1 as components
+
 # import API key from .env file
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
@@ -187,6 +189,7 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
+            # Wrapt the javascript as html code
             js_code="""
             var u = new SpeechSynthesisUtterance();
             u.text = "{response}";
@@ -194,7 +197,11 @@ def reportsGPT():
 
             speechSynthesis.speak(u);
             """
-            st.js(js_code)
+            my_html = f"<script>{js_code}</script>"
+
+
+            components.html(my_html)
+        
             #text_to_speech(response)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
