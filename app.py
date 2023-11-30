@@ -11,10 +11,7 @@ import streamlit as st
 from audio_recorder_streamlit import audio_recorder
 from langchain.agents import create_csv_agent
 from langchain.llms import OpenAI
-from bokeh.models.widgets import Button
-from bokeh.models import CustomJS
 from gtts import gTTS
-from IPython.display import display, Audio
 import base64
 
 # import API key from .env file
@@ -58,7 +55,6 @@ def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-
 local_css("style/style.css")
 
 def get_answer_csv(query: str) -> str:
@@ -70,7 +66,6 @@ def get_answer_csv(query: str) -> str:
 def transcribe(audio_file):
     transcript = openai.Audio.transcribe("whisper-1", audio_file, language="en")
     return transcript
-
 
 def save_audio_file(audio_bytes, file_extension):
     """
@@ -89,41 +84,28 @@ def save_audio_file(audio_bytes, file_extension):
     return file_name
 
 def transcribe_audio(file_path):
-    """
-    Transcribe the audio file at the specified path.
-
-    :param file_path: The path of the audio file to transcribe
-    :return: The transcribed text
-    """
     with open(file_path, "rb") as audio_file:
         transcript = transcribe(audio_file)
 
     return transcript["text"]
 
-def run_custom_js(response):
-    custom_js_code = f"""
-        var u = new SpeechSynthesisUtterance();
-        u.text = "{response}";
-        u.lang = 'en-US';
-        speechSynthesis.speak(u);
-    """
-    st.markdown(f"<script>{custom_js_code}</script>", unsafe_allow_html=True)
-
 def text_to_speech(text, filename='output.mp3'):
     tts = gTTS(text=text, lang='en', slow=False)
     tts.save(filename)
-    # Display and automatically play the audio
-    audio_path = filename
-    audio_data = open(audio_path, 'rb').read()
-    
-    #display(Audio(audio_data, autoplay=True))
-    #st.info('play done')
+
     # Convert audio data to base64
     audio_base64 = base64.b64encode(open(filename, 'rb').read()).decode('utf-8')
     # Generate a data URI for the audio
     audio_uri = f"data:audio/mp3;base64,{audio_base64}"
 
-    return audio_uri
+    # Display the audio player using HTML and JavaScript
+    audio_code = f"""
+    <audio autoplay controls>
+        <source src="{audio_uri}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    """
+    st.markdown(audio_code, unsafe_allow_html=True)
 
 def reportsGPT():
     """
@@ -152,17 +134,7 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-            #text_to_speech(response)
-            audio_uri = text_to_speech(response)
-
-            # Display the audio player using HTML and JavaScript
-            audio_code = f"""
-            <audio autoplay controls>
-                <source src="{audio_uri}" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio>
-            """
-            st.markdown(audio_code, unsafe_allow_html=True)
+            text_to_speech(response)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
@@ -179,19 +151,6 @@ def reportsGPT():
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
-            
-            tts_button = Button(label="Talk to me", width=100)
-
-            tts_button.js_on_event("button_click", CustomJS(code=f"""
-                                    var u = new SpeechSynthesisUtterance();
-                                    u.text = "{response}";
-                                    u.lang = 'en-US';
-
-                                    speechSynthesis.speak(u);
-                                    """))
-
-            st.bokeh_chart(tts_button)
-
             # Provide a download button for the transcript
             st.download_button("Download Response", response)
 

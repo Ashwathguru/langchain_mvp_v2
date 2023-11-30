@@ -11,6 +11,5 @@ langchain==0.0.316
 tiktoken
 black
 tabulate
-bokeh==2.4.3
 gTTS
 ipython
