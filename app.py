@@ -90,7 +90,7 @@ def transcribe_audio(file_path):
     return transcript["text"]
 
 def text_to_speech(text):
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]  # Format with milliseconds
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]  # Format with milliseconds
     filename = f"output_{timestamp}.mp3"
     tts = gTTS(text=text, lang='en', slow=False)
     tts.save(filename)
