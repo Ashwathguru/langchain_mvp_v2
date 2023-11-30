@@ -75,7 +75,7 @@ def save_audio_file(audio_bytes, file_extension):
     :param file_extension: The extension of the output audio file
     :return: The name of the saved audio file
     """
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     file_name = f"audio_{timestamp}.{file_extension}"
 
     with open(file_name, "wb") as f:
