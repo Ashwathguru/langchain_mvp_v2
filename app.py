@@ -132,7 +132,14 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-            run_custom_js(response)
+            tts_code = CustomJS(code=f"""
+                var u = new SpeechSynthesisUtterance();
+                u.text = "{response}";
+                u.lang = 'en-US';
+
+                speechSynthesis.speak(u);
+                """)
+            st.bokeh_chart(tts_code)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
