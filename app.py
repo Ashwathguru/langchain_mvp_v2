@@ -124,7 +124,7 @@ def reportsGPT():
     """
     Main function to run the Whisper Transcription app.
     """
-    st.title("TicketGPT")
+    st.title("ReportGPT")
 
     tab1, tab2 = st.tabs(["Speak", "Chat"])
 
@@ -146,14 +146,7 @@ def reportsGPT():
             query=transcript_text
             response=get_answer_csv(query)
             st.write(response)
-            #tts_code = CustomJS(code=f"""
-            #    var u = new SpeechSynthesisUtterance();
-            #    u.text = "{response}";
-            #    u.lang = 'en-US';
-            #    speechSynthesis.speak(u);
-            #    """)
-            #st.bokeh_chart(tts_code)
-            save_and_play_mp3(response)
+            text_to_speech(response)
             # Save the transcript to a text file
             with open("response.txt", "w") as f:
                 f.write(response)
@@ -246,7 +239,6 @@ if selected == "Home":
                 # Open a pop-up with additional content
                 st.write("This is a pop-up!")
 if selected == "ReportGPT":
-    st.title(f"You have selected {selected}")
     # Set up the working directory
     working_dir = os.path.dirname(os.path.abspath(__file__))
     sys.path.append(working_dir)
