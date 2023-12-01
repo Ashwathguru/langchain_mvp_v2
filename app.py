@@ -177,10 +177,70 @@ def text_to_speech(text):
     st.markdown(audio_code, unsafe_allow_html=True)
     #customMarkdown(audio_uri)
 
+def WikiGPT():
+    st.title("WikiGPT")
+    tab1, tab2 = st.tabs(["Speak", "Chat"])
+    # Record Audio tab
+    with tab1:
+        audio_bytes = audio_recorder()
+        st.image("images/report_chats.JPG")
+        st.write("Ask questions about the report")
+        if audio_bytes:
+            st.cache_data.clear()
+            #option to replay audio
+            #st.audio(audio_bytes, format="audio/wav")
+            save_audio_file(audio_bytes, "mp3")
+            audio_file_path = max(
+                [f for f in os.listdir(".") if f.startswith("audio")],
+                key=os.path.getctime,
+            )
+            # Transcribe the audio file
+            transcript_text = transcribe_audio(audio_file_path)
+            # Display the transcript
+            st.header("Transcript")
+            st.write(transcript_text)
+            query=transcript_text
+            response=get_answer_csv(query)
+            if response != "":
+                st.write(response)
+                js_code="""
+                var u = new SpeechSynthesisUtterance();
+                u.text = "{response}";
+                u.lang = 'en-US';
+                speechSynthesis.speak(u);
+                """.format(response=response)
+                my_html = f"<script>{js_code}</script>"
+                components.html(my_html)
+
+                #text_to_speech(response)
+
+                # Save the transcript to a text file
+                #with open("response.txt", "w") as f:
+                #    f.write(response)
+                ## Provide a download button for the transcript
+                #st.download_button("Download Response", response,key='voice_download')
+
+    #Chat Tab
+    with tab2:
+        st.image("images/report_chats.JPG")
+        st.write("Ask questions about the report")
+        query = st.text_area("Ask any question related to the tickets")
+        button = st.button("Submit")
+        if button:
+            response=get_answer_csv(query)
+            if response != "":
+                st.write(response)
+            # Save the transcript to a text file
+            #with open("response.txt", "w") as f:
+            #    f.write(response)
+            ## Provide a download button for the transcript
+            #st.download_button("Download Response", response,key='chat_download')
+
 def reportsGPT():
     st.title("ReportGPT")
+    st.image("images/report_chats.JPG")
+    st.write("Ask questions about the report.")
     tab1, tab2 = st.tabs(["Speak", "Chat"])
-
     # Record Audio tab
     with tab1:
         audio_bytes = audio_recorder()
@@ -297,4 +357,4 @@ if selected == "ReportGPT":
     # Run the main function
     reportsGPT()
 if selected == "WikiGPT":
-    st.title(f"You have selected {selected}")
+    WikiGPT()
