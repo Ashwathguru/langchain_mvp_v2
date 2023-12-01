@@ -59,10 +59,22 @@ def local_css(file_name):
 local_css("style/style.css")
 
 def get_answer_csv(query: str) -> str:
-    file = "raw.csv"
-    agent = create_csv_agent(OpenAI(temperature=0), file, verbose=False)
-    answer = agent.run(query)
-    return answer
+    try:
+        file = "raw.csv"
+        agent = create_csv_agent(OpenAI(temperature=0), file, verbose=False)
+        answer = agent.run(query)
+        return answer
+    except openai.error.InvalidRequestError as e:
+        print(f"InvalidRequestError: {e}")
+        st.info('This is an experimental version, so feel free to ask simpler questions as we fine-tune our system.')
+        answer=""
+        return answer
+    except Exception as e:
+        # Handle other exceptions
+        print(f"An error occurred(Please refresh and try): {e}")
+        st.info("An error occurred.Please refresh and try")
+        answer=""
+        return answer
 
 def transcribe(audio_file):
     transcript = openai.Audio.transcribe("whisper-1", audio_file, language="en")
@@ -188,23 +200,24 @@ def reportsGPT():
             st.write(transcript_text)
             query=transcript_text
             response=get_answer_csv(query)
-            st.write(response)
-            js_code="""
-            var u = new SpeechSynthesisUtterance();
-            u.text = "{response}";
-            u.lang = 'en-US';
-            speechSynthesis.speak(u);
-            """.format(response=response)
-            my_html = f"<script>{js_code}</script>"
-            components.html(my_html)
-        
-            #text_to_speech(response)
-            
-            # Save the transcript to a text file
-            #with open("response.txt", "w") as f:
-            #    f.write(response)
-            ## Provide a download button for the transcript
-            #st.download_button("Download Response", response,key='voice_download')
+            if response != "":
+                st.write(response)
+                js_code="""
+                var u = new SpeechSynthesisUtterance();
+                u.text = "{response}";
+                u.lang = 'en-US';
+                speechSynthesis.speak(u);
+                """.format(response=response)
+                my_html = f"<script>{js_code}</script>"
+                components.html(my_html)
+
+                #text_to_speech(response)
+
+                # Save the transcript to a text file
+                #with open("response.txt", "w") as f:
+                #    f.write(response)
+                ## Provide a download button for the transcript
+                #st.download_button("Download Response", response,key='voice_download')
 
     #Chat Tab
     with tab2:
@@ -212,7 +225,8 @@ def reportsGPT():
         button = st.button("Submit")
         if button:
             response=get_answer_csv(query)
-            st.write(response)
+            if response != "":
+                st.write(response)
             # Save the transcript to a text file
             #with open("response.txt", "w") as f:
             #    f.write(response)
