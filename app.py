@@ -183,7 +183,7 @@ def WikiGPT():
     # Record Audio tab
     with tab1:
         audio_bytes = audio_recorder()
-        st.image("images/report_chats.JPG")
+        st.image("images/report_charts.jpg")
         st.write("Ask questions about the report")
         if audio_bytes:
             st.cache_data.clear()
@@ -222,7 +222,7 @@ def WikiGPT():
 
     #Chat Tab
     with tab2:
-        st.image("images/report_chats.JPG")
+        st.image("images/report_charts.jpg")
         st.write("Ask questions about the report")
         query = st.text_area("Ask any question related to the tickets")
         button = st.button("Submit")
@@ -238,7 +238,7 @@ def WikiGPT():
 
 def reportsGPT():
     st.title("ReportGPT")
-    st.image("images/report_chats.JPG")
+    st.image("images/report_charts.jpg")
     st.write("Ask questions about the report.")
     tab1, tab2 = st.tabs(["Speak", "Chat"])
     # Record Audio tab
